@@ -1,9 +1,61 @@
-<h1>New task</h1>
 
-<%= render "form", task: @task %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h2 class="mb-0">New Task</h2>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: [@project, @task]) do |form|  %>
+            <% if @task.errors.any? %>
+              <div class="alert alert-danger">
+                <h3><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h3>
+                <ul>
+                  <% task.errors.full_messages.each do |error| %>
+                    <li><%= error.full_message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <div class="mb-3">
+              <%= form.label :title, class: 'form-label' %>
+              <%= form.text_field :title, class: 'form-control', required: true %>
+              <div class="invalid-feedback">Title is required.</div>
+            </div>
 
-<br>
+            <div class="mb-3">
+              <%= form.label :description, class: 'form-label' %>
+              <%= form.text_area :description, class: 'form-control rows:4' %>
+              <%# replace text area with rich_text_area :description, class: 'trix-content' %>
+            </div>
 
-<div>
-  <%= link_to "Back to tasks", project_tasks_path(@project) %>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :due_date, class: 'form-label' %>
+                <%= form.date_field :due_date, class: 'form-control' %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :status, class: 'form-label' %>
+                <%= form.text_field :status, class: 'form-control' %>
+              </div>
+
+              <div>
+                <%= form.label :project_id, style: "display: block" %>
+                <%= form.text_field :project_id, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit 'Create Task', class: 'btn btn-primary btn-lg' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="mt-3">
+        <%# <%= link_to 'Back to tasks', projects_tasks_path, class: 'btn btn-outline-secondary' %> %>
+      </div>
+    </div>
+  </div>
 </div>
