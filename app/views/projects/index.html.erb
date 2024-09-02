@@ -1,0 +1,84 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Projects (<%= @projects.count %>)</h1>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <%= form_with url: projects_path, method: :get, class: 'input-group' do |form| %>
+        <%= form.text_field :search, placeholder: 'Search projects', value: params[:search], class: 'form-control' %>
+        <button class="btn btn-primary" type="submit">
+          <i class="bi bi-search"></i> Search
+        </button>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex justify-content-md-end align-items-center mt-3 mt-md-0">
+        <span class="me-2">Sort by:</span>
+        <div class="btn-group">
+          <%= link_to 'Title', projects_path(sort: 'title'), class: "btn btn-outline-secondary btn-sm #{'active' if params[:sort] == 'title'}" %>
+          <%= link_to 'Start Date', projects_path(sort: 'start_date'), class: "btn btn-outline-secondary btn-sm #{'active' if params[:sort] == 'start_date'}" %>
+          <%= link_to 'Progress', projects_path(sort: 'progress'), class: "btn btn-outline-secondary btn-sm #{'active' if params[:sort] == 'progress'}" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if @projects.present? %>
+    <div class="mb-3">     
+      <%= paginate @projects %>
+    </div>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% @projects.each do |project| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= project.title %></h5>
+              <p class="card-text"><%= truncate(project.description, length: 100) %></p>
+              <p class="card-text">
+                <small class="text-muted">
+                  <i class="bi bi-calendar-event me-2"></i>Start: <%= project.start_date.strftime('%Y-%m-%d') %>
+                </small>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">
+                  <i class="bi bi-calendar-check me-2"></i>End: <%= project.end_date.strftime('%Y-%m-%d') %>
+                </small>
+              </p>
+              <div class="progress mb-3">
+                <% progress_class = case project.progress
+                                    when 0..33 then 'bg-danger'
+                                    when 34..66 then 'bg-warning'
+                                    else 'bg-success'
+                                    end %>
+                <div class="progress-bar <%= progress_class %>" role="progressbar" 
+                     style="width: <%= project.progress %>%;" 
+                     aria-valuenow="<%= project.progress %>" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                  <%= project.progress %>%
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+              <%= link_to 'Show this project', project, class: 'btn btn-primary btn-sm' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="mt-4">
+      <%= paginate @projects %>
+    </div>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      <i class="bi bi-info-circle me-2"></i>You don't have any projects yet. Why not create one?
+    </div>
+  <% end %>
+
+  <div class="mt-4">
+    <%= link_to new_project_path, class: 'btn btn-success' do %>
+      <i class="bi bi-plus-circle me-2"></i>New project
+    <% end %>
+  </div>
+</div>

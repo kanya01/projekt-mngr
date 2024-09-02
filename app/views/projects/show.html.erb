@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title"><%= @project.title %></h2>
+      <p><strong>Description:</strong> <%= @project.description %></p>
+      <p><strong>Start Date:</strong> <%= @project.start_date %></p>
+      <p><strong>End Date:</strong> <%= @project.end_date %></p>
+
+      <%= @project.inspect %>
+      
+      <h3 class="mt-4">Tasks</h3>
+      <%= link_to 'New Task', new_project_task_path(@project), class: 'btn btn-primary mb-3' %>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @project.tasks.any? %>
+        <% @project.tasks.each do |task| %>
+          <tr>
+      <td><%= task.title %></td>
+      <td><%= task.due_date %></td>
+      <td><%= task.status %></td>
+      <td>
+        <%= link_to 'View', project_task_path(@project, task), class: 'btn btn-sm btn-info' %>
+        <%= link_to 'Edit', edit_project_task_path(@project, task), class: 'btn btn-sm btn-warning' %>
+        <%= link_to 'Delete', project_task_path(@project, task), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+      </td>
+    </tr>
+  <% end %>
+<% else %>
+  <tr>
+    <td colspan="4">No tasks found for this project.</td>
+  </tr>
+<% end %>
+        </tbody>
+      </table>
+      
+      <%= link_to 'Edit Project', edit_project_path(@project), class: 'btn btn-warning' %>
+      <%= link_to 'Back to Projects', projects_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>

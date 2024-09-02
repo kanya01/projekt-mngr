@@ -1,0 +1,33 @@
+<nav id="sidebar" class="sidebar col-lg-2 d-md-block bg-light sidebar collapse">
+  <div class="sidebar-sticky pt-3">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <%= link_to dashboard_path, class: "nav-link #{active_class('dashboard')}" do %>
+            <i class="bi bi-speedometer2"></i> Dashboard
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to profile_path, class: "nav-link #{active_class('profile')}" do %>
+          <i class="bi bi-person"></i> Profile
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to projects_path, class: "nav-link #{active_class('projects')}" do %>
+          <i class="bi bi-folder"></i> Projects
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to tasks_path, class: "nav-link #{active_class('tasks')}" do %>
+          <i class="bi bi-list-task"></i> Tasks
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to wiki_index_path, class: "nav-link #{active_class('wiki')}" do %>
+          <i class="bi bi-book"></i> Wiki
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+

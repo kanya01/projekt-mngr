@@ -1,0 +1,8 @@
+<h1><%= @wiki_page.title %></h1>
+
+<div class="wiki-content">
+  <%= simple_format @wiki_page.content %>
+</div>
+
+<%= link_to 'Edit', edit_wiki_path(@wiki_page), class: 'btn btn-secondary' %>
+<%= link_to 'Back to Wiki', wiki_index_path, class: 'btn btn-primary' %>
