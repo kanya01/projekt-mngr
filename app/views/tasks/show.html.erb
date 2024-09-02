@@ -1,7 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @task %>
-
+<%= render 'tasks/shared/tag' %> 
 <div>
   <%= link_to "Edit this task", edit_project_task_path(@task.project, @task) %> |
   <%= link_to "Back to tasks", project_tasks_path(@task.project) %>

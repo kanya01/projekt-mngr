@@ -49,20 +49,20 @@
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     background-color: #f8f9fa;
-    color: #495057;
+    color: #ec0c0c;
     
     &:hover {
-      background-color: #e9ecef;
+      background-color: #f42323;
     }
     
     &.trix-active {
-      background-color: #007bff;
+      background-color: #e62828;
       color: white;
     }
   }
 
   .trix-editor {
-    border: 1px solid #ced4da;
+    border: 1px solid #0578ec;
     border-radius: 0.25rem;
     padding: 0.5rem;
     min-height: 150px;

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
 
@@ -17,15 +19,12 @@ Rails.application.routes.draw do
   resources :tasks, only: [:index]
 
   # resources :wiki, controller: 'wiki'
-   get 'wiki', to: 'wiki#main', as: :main_wiki 
-    resources :wiki, controller: 'wiki'
-  
-
+  get 'wiki', to: 'wiki#main', as: :main_wiki
+  resources :wiki, controller: 'wiki'
 
   get 'dashboard', to: 'dashboard#index', as: :dashboard
 
   get 'profile', to: 'profile#show'
   get 'profile/edit', to: 'profile#edit', as: :edit_profile
   patch 'profile', to: 'profile#update'
-  
-  end
+end

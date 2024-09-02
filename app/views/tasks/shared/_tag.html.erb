@@ -1,0 +1,61 @@
+<%= form_with(model: [@project, @task] , data: { controller: 'tag' }) do |form| %>
+<div class="mb-3">
+    <%= form.label :tag_list, "Tags", class: "form-label" %>
+    <div id="tag-container" data-tag-target="container" class="mb-2">
+      <!-- Existing tags will be populated here by the controller -->
+    </div>
+    <%= form.text_field :tag_list, value: @task.tag_list.to_s, class: "form-control", 
+        data: { tag_target: "input", action: "keydown->tag#addTag" } %>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tagContainer = document.getElementById('tag-container');
+  const tagInput = document.getElementById('tag-input');
+
+  // Function to create a new tag badge
+  function createTagBadge(tagName) {
+    const badge = document.createElement('span');
+    badge.className = 'badge bg-primary me-1 mb-1';
+    badge.innerHTML = `
+      ${tagName}
+      <button type="button" class="btn-close btn-close-white" aria-label="Remove tag"></button>
+    `;
+    badge.querySelector('.btn-close').addEventListener('click', function() {
+      badge.remove();
+      updateTagList();
+    });
+    return badge;
+  }
+
+  // Function to update the hidden input with current tags
+  function updateTagList() {
+    const tags = Array.from(tagContainer.children).map(badge => badge.textContent.trim());
+    tagInput.value = tags.join(', ');
+  }
+
+  // Add new tag when Enter is pressed
+  tagInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && this.value.trim() !== '') {
+      e.preventDefault();
+      const newTag = createTagBadge(this.value.trim());
+      tagContainer.appendChild(newTag);
+      this.value = '';
+      updateTagList();
+    }
+  });
+
+  // Initialize existing tags as badges
+  tagInput.value.split(',').forEach(tag => {
+    if (tag.trim() !== '') {
+      const newTag = createTagBadge(tag.trim());
+      tagContainer.appendChild(newTag);
+    }
+  });
+  tagInput.value = '';
+
+  // Update tag list when form is submitted
+  tagInput.form.addEventListener('submit', updateTagList);
+});
+</script>
+<% end %>
