@@ -56,15 +56,15 @@ body {
   //   padding-bottom: 200px;
   // }
   
-  .sidebar .nav-link {
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-    color: #333;
-  }
+  // .sidebar .nav-link {
+  //   padding: 0.5rem 1rem;
+  //   font-weight: 500;
+  //   color: #333;
+  // }
   
-  .sidebar .nav-link.active {
-    color: #007bff;
-  }
+  // .sidebar .nav-link.active {
+  //   color: #007bff;
+  // }
   
   main {
     padding-top: 70px;
@@ -93,7 +93,10 @@ body {
  * compiled file so the styles you add here take precedence over styles defined in any other CSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
- *
+ *= require trix
+ *= require actiontext
  *= require_tree .
  *= require_self
+
+
  */

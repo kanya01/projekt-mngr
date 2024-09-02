@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
   belongs_to :user
   has_many :tasks
+  has_rich_text :description
 
   validates :progress, numericality: { only_integer: true}, allow_nil: true
   validates :user, presence: true

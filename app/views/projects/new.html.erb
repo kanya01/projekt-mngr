@@ -1,12 +1,12 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-8 col-lg-6">
       <div class="card">
         <div class="card-header bg-primary text-white">
           <h2 class="mb-0">New Project</h2>
         </div>
         <div class="card-body">
-          <%= form_with(model: @project, local: true, class: 'needs-validation', novalidate: true) do |form| %>
+          <%= form_with(model: @project, local: true, class: 'needs-validation', data: { turbo: true }) do |form| %>
             <div class="mb-3">
               <%= form.label :title, class: 'form-label' %>
               <%= form.text_field :title, class: 'form-control', required: true %>
@@ -15,7 +15,8 @@
 
             <div class="mb-3">
               <%= form.label :description, class: 'form-label' %>
-              <%= form.text_area :description, class: 'form-control', rows: 4 %>
+              <%= form.text_area :description, class: 'form-control rows:4' %>
+              <%# replace text area with rich_text_area :description, class: 'trix-content' %>
             </div>
 
             <div class="row">
