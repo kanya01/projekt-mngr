@@ -16,7 +16,11 @@ Rails.application.routes.draw do
 
   resources :tasks, only: [:index]
 
-  resources :wiki, controller: 'wiki'
+  # resources :wiki, controller: 'wiki'
+   get 'wiki', to: 'wiki#main', as: :main_wiki 
+    resources :wiki, controller: 'wiki'
+  
+
 
   get 'dashboard', to: 'dashboard#index', as: :dashboard
 

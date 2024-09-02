@@ -2,11 +2,16 @@ class WikiController < ApplicationController
   before_action :authenticate_user!
   before_action :set_wiki_page, only: [:show, :edit, :update, :destroy]
 
+  def main
+    @latest_wiki_page = WikiPage.order(updated_at: :desc).first
+    @all_wiki_pages = WikiPage.all.order(title: :asc)
+  end
   def index
     @wiki_pages = WikiPage.all
   end
 
   def show
+    @wiki_page = WikiPage.find(params[:id])
   end
 
   def new

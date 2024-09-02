@@ -1,0 +1,24 @@
+<h1>Wiki Home</h1>
+
+<h2>Latest Update</h2>
+<% if @latest_page %>
+  <h3><%= link_to @latest_page.title, wiki_path(@latest_page) %></h3>
+  <p>Last updated: <%= @latest_page.updated_at.strftime("%B %d, %Y") %></p>
+<% else %>
+  <p>No pages created yet.</p>
+<% end %>
+
+<h2>All Pages</h2>
+    <% if @all_pages.present?%>
+<ul>
+    
+  <% @all_pages.each do |page| %>
+    <li><%= link_to page.title, wiki_path(page) %></li>
+  <% end %>
+</ul>
+<% else %>
+  <p>No pages created yet.</p>
+<% end %>
+
+
+<%= link_to 'Create New Page', new_wiki_path, class: 'btn btn-primary' %>
