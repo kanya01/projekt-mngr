@@ -6,7 +6,7 @@
       <p><strong>Start Date:</strong> <%= @project.start_date %></p>
       <p><strong>End Date:</strong> <%= @project.end_date %></p>
 
-      <%= @project.inspect %>
+      <%#= @project.inspect %>
       
       <h3 class="mt-4">Tasks</h3>
       <%= link_to 'New Task', new_project_task_path(@project), class: 'btn btn-primary mb-3' %>
@@ -26,7 +26,12 @@
           <tr>
       <td><%= task.title %></td>
       <td><%= task.due_date %></td>
-      <td><%= task.status %></td>
+      <td>
+        <%= form_with(model: [task.project, task], local: true, class: 'd-inline') do |form| %>
+        <%= form.select :status, options_for_select(['Complete', 'In Progress', 'Blocked'], task.status), {}, {class: 'form-select form-select-sm d-inline w-auto'} %>
+        <%= form.submit 'Update', class: 'btn btn-sm btn-primary d-inline' %>
+        <% end %>
+      </td>
       <td>
         <%= link_to 'View', project_task_path(@project, task), class: 'btn btn-sm btn-info' %>
         <%= link_to 'Edit', edit_project_task_path(@project, task), class: 'btn btn-sm btn-warning' %>
